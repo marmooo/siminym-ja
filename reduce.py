@@ -1,5 +1,3 @@
-import re
-
 words = {}
 with open("words.lst") as f:
     for line in f:
