@@ -73,6 +73,8 @@ function copyToClipboard(text) {
 }
 
 async function searchSiminyms(lemma) {
+  const loading = document.getElementById("loading");
+  loading.classList.remove("d-none");
   const obj = document.getElementById("siminyms");
   const row = await dbWorker.db.query(
     `SELECT words FROM siminyms WHERE lemma="${escapeSql(lemma)}"`,
@@ -86,12 +88,13 @@ async function searchSiminyms(lemma) {
       const button = document.createElement("button");
       button.className = "btn btn-outline-secondary m-1";
       button.textContent = word;
-      button.onclick = function () {
+      button.onclick = () => {
         copyToClipboard(button.textContent);
       };
       obj.appendChild(button);
     }
   }
+  loading.classList.add("d-none");
 }
 
 async function loadDBWorker() {
