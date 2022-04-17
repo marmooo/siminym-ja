@@ -48,7 +48,6 @@ async function parseLemma() {
     if (!line) continue;
     const arr = line.split(/\s/);
     const lemma = arr[0];
-    if (lemma.length == 1) continue;
     if (lemma in sudachiFilter == false) continue;
     if (lemma in inappropriateWordsJa) continue;
     if (!/^[ぁ-んァ-ヴー一-龠々 ]+$/.test(lemma)) continue; // 数字記号は無視

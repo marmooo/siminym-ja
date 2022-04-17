@@ -84,7 +84,7 @@ async function searchSiminyms(lemma) {
   }
   if (row[0]) {
     const words = JSON.parse(row[0].words);
-    for (const word of words) {
+    for (const [word, _similarity] of words) {
       const button = document.createElement("button");
       button.className = "btn btn-outline-secondary m-1";
       button.textContent = word;
@@ -107,7 +107,6 @@ async function loadDBWorker() {
     "/siminym-ja/sql.js-httpvfs/sqlite.worker.js",
     "/siminym-ja/sql.js-httpvfs/sql-wasm.wasm",
   );
-  searchSiminyms("走る");
 }
 
 let dbWorker;

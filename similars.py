@@ -3,8 +3,9 @@ from pymagnitude import Magnitude
 def getSiminyms(fout, word):
     if word in vectors:
         similars = vectors.most_similar(word)
-        siminyms = list(map(lambda x: x[0], similars))
-        content = word + "," + ",".join(siminyms) + "\n"
+        siminyms = list(map(lambda x: list(x), similars))
+        json = str(siminyms).replace("'", '"').replace(" ", "")
+        content = word + "\t" + json + "\n"
         fout.write(content)
 
 
