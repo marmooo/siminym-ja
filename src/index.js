@@ -84,10 +84,11 @@ async function searchSiminyms(lemma) {
   }
   if (row[0]) {
     const words = JSON.parse(row[0].words);
-    for (const [word, _similarity] of words) {
+    for (const word of words) {
+      const [lemma, _similarity] = word;
       const button = document.createElement("button");
       button.className = "btn btn-outline-secondary m-1";
-      button.textContent = word;
+      button.textContent = lemma;
       button.onclick = () => {
         copyToClipboard(button.textContent);
       };
