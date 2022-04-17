@@ -18,7 +18,7 @@ const fileReader = await Deno.open("dist/dict.csv");
 remoteDB.query("begin");
 for await (const line of readLines(fileReader)) {
   const [lemma, siminyms] = line.split("\t");
-  insertCollocation.execute([lemma, siminyms);
+  insertCollocation.execute([lemma, siminyms]);
 }
 remoteDB.query("commit");
 remoteDB.query(`
