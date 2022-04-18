@@ -16,6 +16,6 @@ with open("words.lst") as f:
     for line in f:
         word = line.split(",", 1)[0]
         words.append(word)
-with open("dist/dict.csv", "w") as fout:
+with open("dist/dict.tsv", "w") as fout:
     for word in words:
         getSiminyms(fout, word)
