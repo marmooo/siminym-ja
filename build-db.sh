@@ -1,4 +1,5 @@
 rm remote.db
+rm -rf docs/db
 deno run --allow-read --allow-write build.js
 bash optimize.sh
 mkdir -p docs/db
