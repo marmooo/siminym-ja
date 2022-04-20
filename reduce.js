@@ -36,7 +36,7 @@ async function loadSudachiFilter() {
   return dict;
 }
 
-async function parseLemma() {
+async function build() {
   const inappropriateWordsJa = await loadInappropriateWordsJa();
   const sudachiFilter = await loadSudachiFilter();
 
@@ -67,7 +67,7 @@ async function parseLemma() {
   return arr;
 }
 
-const result = await parseLemma();
+const result = await build();
 Deno.writeTextFile(
   "words.lst",
   result.map((x) => x.join(",")).join("\n"),
