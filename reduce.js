@@ -69,6 +69,6 @@ async function build() {
 
 const result = await build();
 Deno.writeTextFile(
-  "words.lst",
+  "all.lst",
   result.map((x) => x.join(",")).join("\n"),
 );

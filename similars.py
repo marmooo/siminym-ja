@@ -14,8 +14,7 @@ vectors = Magnitude("cc.ja.300-small.magnitude")
 words = []
 with open("words.lst") as f:
     for line in f:
-        word = line.split(",", 1)[0]
-        words.append(word)
-with open("dist/dict.tsv", "w") as fout:
+        words.append(line.rstrip())
+with open("siminyms.tsv", "w") as fout:
     for word in words:
         getSiminyms(fout, word)

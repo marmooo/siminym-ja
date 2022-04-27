@@ -515,7 +515,10 @@ function changeLang() {
 }
 function search() {
     const word = document.getElementById("searchText").value;
-    searchSiminyms(word);
+    searchSiminyms(word, 1000);
+    searchSiminyms(word, 3000);
+    searchSiminyms(word, 5000);
+    searchSiminyms(word, 10000);
 }
 function iosCopyToClipboard(el) {
     el = typeof el === "string" ? document.querySelector(el) : el;
@@ -545,11 +548,11 @@ function copyToClipboard(text) {
     document.body.removeChild(input);
     alert("クリップボードにコピーしました。");
 }
-async function searchSiminyms(lemma) {
+async function searchSiminyms(lemma, n) {
     const loading = document.getElementById("loading");
     loading.classList.remove("d-none");
-    const obj = document.getElementById("siminyms");
-    const row = await dbWorker.db.query(`SELECT words FROM siminyms WHERE lemma="${escapeSql(lemma)}"`);
+    const obj = document.getElementById(`siminyms-${n}`);
+    const row = await dbWorkers[n].db.query(`SELECT words FROM siminyms WHERE lemma="${escapeSql(lemma)}"`);
     while(obj.firstChild){
         obj.removeChild(obj.firstChild);
     }
@@ -568,22 +571,26 @@ async function searchSiminyms(lemma) {
     }
     loading.classList.add("d-none");
 }
-async function loadDBWorker() {
+async function loadDBWorker(n) {
     const config = {
         from: "jsonconfig",
-        configUrl: "/siminym-ja/db/config.json"
+        configUrl: `/siminym-ja/db/${n}/config.json`
     };
-    dbWorker = await createDbWorker([
+    dbWorkers[n] = await createDbWorker([
         config
     ], "/siminym-ja/sql.js-httpvfs/sqlite.worker.js", "/siminym-ja/sql.js-httpvfs/sql-wasm.wasm");
 }
-let dbWorker;
+async function loadDBWorkers() {
+    loadDBWorker(1000);
+    loadDBWorker(3000);
+    loadDBWorker(5000);
+    loadDBWorker(10000);
+}
+const dbWorkers = {};
 loadConfig();
-loadDBWorker();
+loadDBWorkers();
 document.addEventListener("keydown", function(event) {
-    if (event.key == "Enter") {
-        search();
-    }
+    if (event.key == "Enter") search();
 }, false);
 document.getElementById("toggleDarkMode").onclick = toggleDarkMode;
 document.getElementById("lang").onchange = changeLang;

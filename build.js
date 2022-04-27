@@ -14,7 +14,7 @@ const insertCollocation = remoteDB.prepareQuery(`
   INSERT INTO siminyms (lemma, words) VALUES(?, ?);
 `);
 
-const fileReader = await Deno.open("dist/dict.tsv");
+const fileReader = await Deno.open("siminyms.tsv");
 remoteDB.query("begin");
 for await (const line of readLines(fileReader)) {
   const [lemma, siminyms] = line.split("\t");
