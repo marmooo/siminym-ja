@@ -114,10 +114,10 @@ async function loadDBWorker(n) {
 }
 
 function loadDBWorkers() {
-  loadDBWorker(1000);
-  loadDBWorker(3000);
-  loadDBWorker(5000);
   loadDBWorker(10000);
+  loadDBWorker(20000);
+  loadDBWorker(40000);
+  loadDBWorker(120000);
 }
 
 const dbWorkers = {};
