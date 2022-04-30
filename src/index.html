@@ -21,6 +21,13 @@
     
       gtag('config', 'UA-142997649-1');
     </script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/siminym-ja/sw.js');
+        });
+      }
+    </script>
     <link rel="icon" type="image/png" href="/siminym-ja/favicon/favicon.png">
     <link rel="icon" type="image/svg+xml" href="/siminym-ja/favicon/favicon.svg">
     <link rel="apple-touch-icon" sizes="180x180" href="/siminym-ja/favicon/apple-touch-icon.png">
