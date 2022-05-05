@@ -25,10 +25,10 @@ function changeLang() {
 
 function search() {
   const word = document.getElementById("searchText").value;
+  searchSiminyms(word, 5000);
   searchSiminyms(word, 10000);
-  searchSiminyms(word, 20000);
-  searchSiminyms(word, 40000);
-  searchSiminyms(word, 120000);
+  searchSiminyms(word, 30000);
+  searchSiminyms(word, 80000);
 }
 
 function iosCopyToClipboard(el) {
@@ -114,10 +114,13 @@ async function loadDBWorker(n) {
 }
 
 function loadDBWorkers() {
-  loadDBWorker(10000);
-  loadDBWorker(20000);
-  loadDBWorker(40000);
-  loadDBWorker(120000);
+  const promises = [
+    loadDBWorker(5000),
+    loadDBWorker(10000),
+    loadDBWorker(30000),
+    loadDBWorker(80000),
+  ];
+  return Promise.all(promises);
 }
 
 const dbWorkers = {};

@@ -25,11 +25,16 @@ async function loadSudachiFilter() {
     for await (const line of readLines(fileReader)) {
       if (!line) continue;
       const arr = line.split(",");
-      const lemma = arr[12];
-      // const form = arr[10];
+      const lemma = arr[0];
+      const pos1 = arr[5];
+      const pos2 = arr[6];
+      const form = arr[10];
       const abc = arr[14];
+      if (pos1 == "記号") continue;
+      if (pos1 == "補助記号") continue;
+      if (pos2 == "固有名詞") continue;
       if (abc != "A") continue;
-      // if (form != "*" && !form.includes("終止形")) continue;
+      if (form != "*" && !form.includes("終止形")) continue;
       dict[lemma] = true;
     }
   }
