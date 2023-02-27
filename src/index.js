@@ -53,6 +53,7 @@ async function searchSiminyms(lemma, n) {
       const button = document.createElement("button");
       button.className = "btn btn-outline-secondary m-1";
       button.textContent = lemma;
+      button.type = "button";
       button.onclick = () => {
         copyToClipboard(button.textContent);
       };
