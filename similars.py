@@ -1,5 +1,6 @@
 from pymagnitude import Magnitude
 
+
 def getSiminyms(fout, word):
     if word in vectors:
         similars = vectors.most_similar(word)
@@ -7,7 +8,6 @@ def getSiminyms(fout, word):
         json = str(siminyms).replace("'", '"').replace(" ", "")
         content = word + "\t" + json + "\n"
         fout.write(content)
-
 
 
 vectors = Magnitude("cc.ja.300-small.magnitude")
