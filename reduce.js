@@ -25,18 +25,22 @@ async function loadSudachiFilter() {
     for await (const line of readLines(fileReader)) {
       if (!line) continue;
       const arr = line.split(",");
-      const lemma = arr[0];
+      const surface = arr[0];
+      const leftId = arr[1];
       const pos1 = arr[5];
       const pos2 = arr[6];
       const form = arr[10];
       const abc = arr[14];
+      if (leftId == "-1") continue;
+      if (!/^[ぁ-ゖァ-ヶー\u4E00-\u9FFF々]+$/.test(surface)) continue;
       if (pos1 == "記号") continue;
       if (pos1 == "補助記号") continue;
       if (pos2 == "固有名詞") continue;
       if (abc != "A") continue;
-      if (form != "*" && !form.includes("終止形")) continue;
-      dict[lemma] = true;
+      if (form != "*" && !form.includes("終止形-一般")) continue;
+      dict[surface] = true;
     }
+    fileReader.close();
   }
   return dict;
 }
@@ -55,7 +59,6 @@ async function build() {
     const lemma = arr[0];
     if (lemma in sudachiFilter == false) continue;
     if (lemma in inappropriateWordsJa) continue;
-    if (!/^[ぁ-んァ-ヴー一-龠々 ]+$/.test(lemma)) continue; // 数字記号は無視
     const count = parseInt(arr[1]);
     if (lemma in dict) {
       dict[lemma] += count;
@@ -63,8 +66,9 @@ async function build() {
       dict[lemma] = count;
     }
   }
+  fileReader.close();
   const arr = Object.entries(dict);
-  arr.sort(function (a, b) {
+  arr.sort((a, b) => {
     if (a[1] < b[1]) return 1;
     if (a[1] > b[1]) return -1;
     return 0;
