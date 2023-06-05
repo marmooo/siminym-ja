@@ -2,6 +2,11 @@
 
 [類似度の高い基本語彙をまとめた辞書](https://marmooo.github.io/siminym-ja/)です。
 
+## Requirements
+
+- [rye](https://github.com/mitsuhiko/rye)
+- `sudo apt install clang` for [spotify/annoy](https://github.com/spotify/annoy)
+
 ## Installation
 
 - install [N-gram corpus](http://www.s-yata.jp/corpus/nwc2010/ngrams/) (free)
@@ -15,6 +20,7 @@
   from [fastText](https://fasttext.cc/docs/en/crawl-vectors.html) licensed under
   the [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)
 - `npm install`
+- `rye sync`
 
 ## Build
 
