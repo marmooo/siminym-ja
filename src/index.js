@@ -75,14 +75,13 @@ async function loadDBWorker(n) {
   );
 }
 
-function loadDBWorkers() {
-  const promises = [
-    loadDBWorker(5000),
-    loadDBWorker(10000),
-    loadDBWorker(30000),
-    loadDBWorker(80000),
-  ];
-  return Promise.all(promises);
+async function loadDBWorkers() {
+  const loading = document.getElementById("loading");
+  loading.classList.remove("d-none");
+  const sizes = [5000, 10000, 30000, 80000];
+  const promises = sizes.map(loadDBWorker);
+  await Promise.all(promises);
+  loading.classList.add("d-none");
 }
 
 const dbWorkers = {};
