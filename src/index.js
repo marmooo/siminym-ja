@@ -89,9 +89,9 @@ const dbWorkers = {};
 loadConfig();
 loadDBWorkers();
 
-document.addEventListener("keydown", function (event) {
+document.addEventListener("keydown", (event) => {
   if (event.key == "Enter") search();
-}, false);
+});
 document.getElementById("toggleDarkMode").onclick = toggleDarkMode;
 document.getElementById("lang").onchange = changeLang;
 document.getElementById("search").onclick = search;
