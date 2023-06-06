@@ -1,10 +1,14 @@
+import sys
+
+threshold = int(sys.argv[1])
+
 words = {}
 with open("words.lst", "w") as fout:
     count = 0
     with open("all.lst") as fin:
         for line in fin:
             count += 1
-            if count > 30000:
+            if count > threshold:
                 break
             word = line.split(",", 1)[0]
             words[word] = True
