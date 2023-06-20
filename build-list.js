@@ -68,11 +68,7 @@ async function build() {
   }
   fileReader.close();
   const arr = Object.entries(dict);
-  arr.sort((a, b) => {
-    if (a[1] < b[1]) return 1;
-    if (a[1] > b[1]) return -1;
-    return 0;
-  });
+  arr.sort((a, b) => b[1] - a[1]);
   return arr;
 }
 
