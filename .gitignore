@@ -1,5 +1,4 @@
-.direnv/
-.envrc
+.venv/
 node_modules/
 cc.ja.300.vec
 cc.ja.300-small.vec
