@@ -1,4 +1,4 @@
-import { Database } from "https://deno.land/x/sqlite3@0.9.1/mod.ts";
+import { Database } from "x/sqlite3";
 
 const remoteDB = new Database("remote.db");
 remoteDB.run("pragma synchronouse=OFF");

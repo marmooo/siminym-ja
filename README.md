@@ -25,7 +25,7 @@
 ## Build
 
 ```
-deno run --allow-read --allow-write reduce.js
+deno run --allow-read --allow-write build-list.js
 deno run -A build-all-db.js
 bash build.sh
 ```
