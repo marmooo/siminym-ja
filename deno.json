@@ -1,6 +1,3 @@
 {
-  "imports": {
-    "@db/sqlite": "jsr:@db/sqlite@0.12.0",
-    "zx": "npm:zx@7.2.3"
-  }
+  "imports": { "@db/sqlite": "jsr:@db/sqlite@0.12.0", "zx": "npm:zx@8.1.6" }
 }
