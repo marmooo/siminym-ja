@@ -1,4 +1,4 @@
-import { Database } from "x/sqlite3";
+import { Database } from "@db/sqlite";
 
 const remoteDB = new Database("remote.db");
 remoteDB.run("pragma synchronouse=OFF");

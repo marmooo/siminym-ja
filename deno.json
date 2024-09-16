@@ -1,6 +1,6 @@
 {
   "imports": {
-    "x/sqlite3": "https://deno.land/x/sqlite3@0.11.1/mod.ts",
+    "@db/sqlite": "jsr:@db/sqlite@0.12.0",
     "zx": "npm:zx@7.2.3"
   }
 }
