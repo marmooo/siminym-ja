@@ -1,10 +1,15 @@
-import { readLines } from "https://deno.land/std/io/mod.ts";
+import { TextLineStream } from "jsr:@std/streams/text-line-stream";
+
+function getLineStream(file) {
+  return file.readable
+    .pipeThrough(new TextDecoderStream())
+    .pipeThrough(new TextLineStream());
+}
 
 async function loadInappropriateWordsJa() {
   const dict = {};
-  const fileReader = await Deno.open("inappropriate-words-ja/Sexual.txt");
-  for await (const word of readLines(fileReader)) {
-    if (!word) continue;
+  const file = await Deno.open("inappropriate-words-ja/Sexual.txt");
+  for await (const word of getLineStream(file)) {
     if (!["イク", "催眠"].includes(word)) {
       dict[word] = true;
     }
@@ -21,9 +26,8 @@ async function loadSudachiFilter() {
     "SudachiDict/src/main/text/notcore_lex.csv",
   ];
   for (const path of paths) {
-    const fileReader = await Deno.open(path);
-    for await (const line of readLines(fileReader)) {
-      if (!line) continue;
+    const file = await Deno.open(path);
+    for await (const line of getLineStream(file)) {
       const arr = line.split(",");
       const surface = arr[0];
       const leftId = arr[1];
@@ -40,7 +44,6 @@ async function loadSudachiFilter() {
       if (form != "*" && !form.includes("終止形-一般")) continue;
       dict[surface] = true;
     }
-    fileReader.close();
   }
   return dict;
 }
@@ -50,11 +53,8 @@ async function build() {
   const sudachiFilter = await loadSudachiFilter();
 
   const dict = {};
-  const fileReader = await Deno.open(
-    "nwc2010-ngrams/word/over999/1gms/1gm-0000",
-  );
-  for await (const line of readLines(fileReader)) {
-    if (!line) continue;
+  const file = await Deno.open("nwc2010-ngrams/word/over999/1gms/1gm-0000");
+  for await (const line of getLineStream(file)) {
     const arr = line.split(/\s/);
     const lemma = arr[0];
     if (lemma in sudachiFilter == false) continue;
@@ -66,7 +66,6 @@ async function build() {
       dict[lemma] = count;
     }
   }
-  fileReader.close();
   const arr = Object.entries(dict);
   arr.sort((a, b) => b[1] - a[1]);
   return arr;
