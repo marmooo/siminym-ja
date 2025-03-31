@@ -5,7 +5,8 @@
 ## Requirements
 
 - [rye](https://github.com/mitsuhiko/rye)
-- `sudo apt install clang` for [spotify/annoy](https://github.com/spotify/annoy)
+- `sudo apt install clang libstdc++-12-dev` for
+  [spotify/annoy](https://github.com/spotify/annoy)
 
 ## Installation
 
@@ -18,15 +19,14 @@
 - install
   [cc.ja.300.vec.gz](https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.ja.300.vec.gz)
   from [fastText](https://fasttext.cc/docs/en/crawl-vectors.html) licensed under
-  the [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)
-- `npm install`
+  the [CC-BY-SA-3.0](https://creativecommons.org/licenses/by-sa/3.0/)
 - `rye sync`
 
 ## Build
 
 ```
-deno run --allow-read --allow-write build-list.js
-deno run -A build-all-db.js
+deno run -RW build-list.js
+deno run -RWES --allow-run="bash" build-all-db.js
 bash build.sh
 ```
 
@@ -37,4 +37,4 @@ bash build.sh
 
 ## License
 
-CC BY-SA 4.0
+CC-BY-SA-4.0
