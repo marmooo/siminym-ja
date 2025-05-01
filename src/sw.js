@@ -1,4 +1,4 @@
-const CACHE_NAME = "2025-04-06 01:35";
+const CACHE_NAME = "2025-05-02 00:00";
 const urlsToCache = [
   "/siminym-ja/",
   "/siminym-ja/index.js",

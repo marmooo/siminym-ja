@@ -1,4 +1,3 @@
-import { escapeSql } from "https://deno.land/x/escape/mod.ts";
 import { createDbWorker } from "../node_modules/sql.js-httpvfs/dist/index.js";
 
 function loadConfig() {
@@ -40,14 +39,12 @@ async function searchSiminyms(lemma, n) {
   const loading = document.getElementById("loading");
   loading.classList.remove("d-none");
   const obj = document.getElementById(`siminyms-${n}`);
-  const row = await dbWorkers[n].db.query(
-    `SELECT words FROM siminyms WHERE lemma="${escapeSql(lemma)}"`,
-  );
+  const row = await dbWorkers[n].searchLemma.getAsObject([lemma]);
   while (obj.firstChild) {
     obj.removeChild(obj.firstChild);
   }
-  if (row[0]) {
-    const words = JSON.parse(row[0].words);
+  if (row.words) {
+    const words = JSON.parse(row.words);
     for (const word of words) {
       const [lemma, _similarity] = word;
       const button = document.createElement("button");
@@ -72,6 +69,9 @@ async function loadDBWorker(n) {
     [config],
     "/siminym-ja/sql.js-httpvfs/sqlite.worker.js",
     "/siminym-ja/sql.js-httpvfs/sql-wasm.wasm",
+  );
+  dbWorkers[n].searchLemma = await dbWorkers[n].db.prepare(
+    `SELECT words FROM siminyms WHERE lemma=?`,
   );
 }
 
